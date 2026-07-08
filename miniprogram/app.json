@@ -4,7 +4,8 @@
     "pages/speaking/speaking",
     "pages/writing/writing",
     "pages/vocabulary/vocabulary",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/mastered-words/mastered"
   ],
   "window": {
     "navigationBarTextStyle": "black",

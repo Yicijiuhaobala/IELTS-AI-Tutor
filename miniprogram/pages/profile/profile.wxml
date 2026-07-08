@@ -15,9 +15,9 @@
       <view class="overview-value">{{totalStats.writingPieces}}</view>
       <view class="overview-label">作文批改篇数</view>
     </view>
-    <view class="overview-item">
+    <view class="overview-item clickable" bindtap="goMasteredWords">
       <view class="overview-value">{{totalStats.vocabMastered}}</view>
-      <view class="overview-label">已掌握词汇</view>
+      <view class="overview-label">已掌握词汇 ›</view>
     </view>
     <view class="overview-item">
       <view class="overview-value">{{totalStats.totalStudyDays}}</view>

@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="page-header">
+    <view class="header-top">
+      <text class="back-btn" bindtap="wx.navigateBack">← 返回</text>
+      <text class="accent-toggle" bindtap="toggleAccent">{{accent === 0 ? '🇬🇧 英式' : '🇺🇸 美式'}}</text>
+    </view>
+    <view class="page-title">已掌握词汇（{{words.length}}）</view>
+    <input class="search-input" placeholder="🔍 搜索单词或释义..." model:value="{{searchKey}}" bindinput="onSearchInput" />
+  </view>
+
+  <view class="word-list">
+    <view class="word-item" wx:for="{{words}}" wx:for-item="w" wx:key="index">
+      <view class="word-main">
+        <text class="word-text" bindtap="playSound" data-word="{{w.word}}">{{w.word}}</text>
+        <text class="word-phonetic">{{w.phonetic}}</text>
+        <text class="sound-btn" bindtap="playSound" data-word="{{w.word}}">🔊</text>
+      </view>
+      <view class="word-meaning">{{w.meaning}}</view>
+      <view class="word-date">{{w.date}} 掌握</view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{words.length === 0}}">
+    <text>📚</text>
+    <view>还没有已掌握的词汇</view>
+    <view class="empty-hint">在词汇页面标记"已掌握"后，会出现在这里</view>
+  </view>
+</view>

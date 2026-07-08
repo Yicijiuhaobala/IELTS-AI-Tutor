@@ -40,6 +40,10 @@
   box-shadow: var(--shadow-sm);
 }
 
+.overview-item.clickable:active {
+  opacity: 0.7;
+}
+
 .overview-value {
   font-size: 48rpx;
   font-weight: 700;

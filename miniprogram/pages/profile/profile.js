@@ -96,6 +96,10 @@ Page({
     wx.setStorageSync('target_band', index)
   },
 
+  goMasteredWords() {
+    wx.navigateTo({ url: '/pages/mastered-words/mastered' })
+  },
+
   formatDate(date) {
     if (!date) return ''
     const d = new Date(date)

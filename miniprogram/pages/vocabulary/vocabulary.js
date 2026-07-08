@@ -112,7 +112,7 @@ Page({
           meaning: word.meaning,
           date: new Date().toLocaleDateString()
         })
-        wx.setStorageSync('mastered_words', mastered.slice(0, 200))
+        wx.setStorageSync('mastered_words', mastered)
       }
     }
   },
