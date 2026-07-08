@@ -30,20 +30,29 @@ Page({
   },
 
   generateStreak() {
-    const days = []
     const dayNames = ['日', '一', '二', '三', '四', '五', '六']
+    const days = []
     for (let i = 6; i >= 0; i--) {
       const d = new Date()
       d.setDate(d.getDate() - i)
-      const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
       days.push({
         label: dayNames[d.getDay()],
-        date: dateStr,
-        active: i < this.data.totalStats.streakDays,
+        date: `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`,
+        active: false,
         today: i === 0
       })
     }
-    this.setData({ last7Days: days })
+
+    wx.cloud.callFunction({
+      name: 'user-data',
+      data: { action: 'getStreak' }
+    }).then(res => {
+      if (res.result && res.result.logs) {
+        const activeDates = new Set(res.result.logs.map(l => l.date))
+        const updated = days.map(d => ({ ...d, active: activeDates.has(d.date) }))
+        this.setData({ last7Days: updated })
+      }
+    }).catch(() => {})
   },
 
   async loadHistory() {

@@ -1,6 +1,6 @@
 <view class="container">
   <view class="header">
-    <view class="greeting">早上好 👋</view>
+    <view class="greeting">{{greeting}}</view>
     <view class="subtitle">今天也要加油学雅思！</view>
   </view>
 
