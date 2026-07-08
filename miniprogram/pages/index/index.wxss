@@ -1,0 +1,161 @@
+.container {
+  padding-bottom: 40rpx;
+}
+
+.header {
+  padding: 48rpx 32rpx 32rpx;
+  background: linear-gradient(135deg, var(--primary) 0%, #6CB4EE 100%);
+  color: #fff;
+}
+
+.greeting {
+  font-size: 44rpx;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  opacity: 0.9;
+  margin-top: 8rpx;
+}
+
+.stats-row {
+  display: flex;
+  margin: -32rpx 24rpx 0;
+  gap: 16rpx;
+}
+
+.stat-card {
+  flex: 1;
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 24rpx;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+}
+
+.stat-value {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 22rpx;
+  color: var(--text-secondary);
+  margin-top: 4rpx;
+}
+
+.quick-actions {
+  margin: 0 24rpx;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 28rpx;
+  margin-bottom: 16rpx;
+  box-shadow: var(--shadow-sm);
+}
+
+.action-icon {
+  font-size: 48rpx;
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-light);
+  border-radius: var(--radius-sm);
+  margin-right: 24rpx;
+}
+
+.action-info {
+  flex: 1;
+}
+
+.action-title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.action-desc {
+  font-size: 24rpx;
+  color: var(--text-secondary);
+  margin-top: 4rpx;
+}
+
+.action-arrow {
+  font-size: 40rpx;
+  color: var(--text-tertiary);
+}
+
+.today-log {
+  margin: 0 24rpx;
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 24rpx;
+  box-shadow: var(--shadow-sm);
+}
+
+.log-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid var(--border);
+}
+
+.log-item:last-child {
+  border-bottom: none;
+}
+
+.log-icon {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.log-title {
+  font-size: 28rpx;
+}
+
+.log-time {
+  font-size: 22rpx;
+  color: var(--text-tertiary);
+}
+
+.tips-card {
+  margin: 0 24rpx;
+  background: var(--primary-light);
+  border-radius: var(--radius-md);
+  padding: 28rpx;
+}
+
+.tip-item {
+  display: flex;
+  margin-bottom: 16rpx;
+}
+
+.tip-item:last-child {
+  margin-bottom: 0;
+}
+
+.tip-bullet {
+  width: 40rpx;
+  height: 40rpx;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: 22rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  font-size: 26rpx;
+  color: var(--text-primary);
+  line-height: 1.5;
+}

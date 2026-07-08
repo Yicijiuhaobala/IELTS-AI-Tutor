@@ -1,0 +1,64 @@
+<view class="container">
+  <view class="header">
+    <view class="greeting">早上好 👋</view>
+    <view class="subtitle">今天也要加油学雅思！</view>
+  </view>
+
+  <view class="stats-row">
+    <view class="stat-card" wx:for="{{stats}}" wx:key="key">
+      <view class="stat-value">{{item.value}}</view>
+      <view class="stat-label">{{item.label}}</view>
+    </view>
+  </view>
+
+  <view class="section-title">快速开始</view>
+  <view class="quick-actions">
+    <view class="action-card" data-type="speaking" bindtap="navigateTo">
+      <view class="action-icon">🎤</view>
+      <view class="action-info">
+        <view class="action-title">口语对练</view>
+        <view class="action-desc">AI考官模拟，实时打分反馈</view>
+      </view>
+      <view class="action-arrow">›</view>
+    </view>
+    <view class="action-card" data-type="writing" bindtap="navigateTo">
+      <view class="action-icon">✍️</view>
+      <view class="action-info">
+        <view class="action-title">写作批改</view>
+        <view class="action-desc">Task1/2 逐句批改+改写</view>
+      </view>
+      <view class="action-arrow">›</view>
+    </view>
+    <view class="action-card" data-type="vocabulary" bindtap="navigateTo">
+      <view class="action-icon">📚</view>
+      <view class="action-info">
+        <view class="action-title">词汇学习</view>
+        <view class="action-desc">场景记忆+高频词+同义替换</view>
+      </view>
+      <view class="action-arrow">›</view>
+    </view>
+  </view>
+
+  <view class="section-title">今日学习</view>
+  <view class="today-log" wx:if="{{todayHistory.length > 0}}">
+    <view class="log-item" wx:for="{{todayHistory}}" wx:for-item="item" wx:key="index">
+      <view class="log-icon">{{item.icon}}</view>
+      <view class="log-content">
+        <view class="log-title">{{item.title}}</view>
+        <view class="log-time">{{item.time}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:else>
+    <text>📝</text>
+    <view>今天还没有学习记录，开始吧！</view>
+  </view>
+
+  <view class="section-title">学习建议</view>
+  <view class="tips-card">
+    <view class="tip-item" wx:for="{{tips}}" wx:for-item="tip" wx:key="index">
+      <view class="tip-bullet">{{tip.bullet}}</view>
+      <view class="tip-text">{{tip.text}}</view>
+    </view>
+  </view>
+</view>

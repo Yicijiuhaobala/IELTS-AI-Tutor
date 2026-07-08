@@ -1,0 +1,91 @@
+<view class="container">
+  <view class="mode-grid">
+    <view class="mode-item" data-mode="story" bindtap="switchMode">
+      <view class="mode-icon">📖</view>
+      <view class="mode-name">场景故事</view>
+      <view class="mode-desc">把生词编进故事记忆</view>
+    </view>
+    <view class="mode-item" data-mode="quiz" bindtap="switchMode">
+      <view class="mode-icon">✏️</view>
+      <view class="mode-name">填空测验</view>
+      <view class="mode-desc">真题场景填空题</view>
+    </view>
+    <view class="mode-item" data-mode="synonym" bindtap="switchMode">
+      <view class="mode-icon">🔄</view>
+      <view class="mode-name">同义替换</view>
+      <view class="mode-desc">阅读同义替换提取</view>
+    </view>
+    <view class="mode-item" data-mode="etymology" bindtap="switchMode">
+      <view class="mode-icon">🌳</view>
+      <view class="mode-name">词根词缀</view>
+      <view class="mode-desc">词根拆解批量记词</view>
+    </view>
+  </view>
+
+  <view class="section-title">
+    今日词汇
+    <view class="title-actions">
+      <text class="accent-btn" bindtap="toggleAccent">{{accent === 0 ? '🇬🇧 英式' : '🇺🇸 美式'}}</text>
+      <text class="refresh-btn" bindtap="refreshDailyWords">🔄 换一批</text>
+    </view>
+  </view>
+  <view class="daily-words">
+    <view class="word-card" wx:for="{{dailyWords}}" wx:for-item="word" wx:key="index">
+      <view class="word-header">
+        <view class="word-text" bindtap="playSound" data-word="{{word.word}}">{{word.word}}</view>
+        <view class="word-phonetic-area">
+          <text class="word-phonetic">{{word.phonetic}}</text>
+          <text class="sound-btn" bindtap="playSound" data-word="{{word.word}}">🔊</text>
+        </view>
+      </view>
+      <view class="word-meaning">{{word.meaning}}</view>
+      <view class="word-example">
+        <text class="example-text">{{word.example}}</text>
+        <text class="sound-btn example-sound" bindtap="playSound" data-word="{{word.example}}">🔊</text>
+      </view>
+      <view class="word-status {{word.mastered ? 'mastered' : ''}}" bindtap="toggleMastered" data-index="{{index}}">
+        {{word.mastered ? '✅ 已掌握' : '○ 标记掌握'}}
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{isGenerating}}" class="loading-tip">AI 生成中，请稍候...</view>
+
+  <view wx:if="{{showModeContent}}">
+    <view class="section-title">
+      <text class="back-btn" bindtap="backToGrid">← 返回</text>
+      {{modeTitle}}
+    </view>
+    <view class="mode-content">
+      <text class="content-text">{{modeContent}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{!showModeContent}}">
+    <view class="section-title">同义替换练习</view>
+    <view class="synonym-practice" wx:if="{{!showSynonymResult}}">
+      <textarea class="input-box synonym-input" placeholder="粘贴阅读文章段落..." model:value="{{passageText}}" />
+      <textarea class="input-box synonym-input" placeholder="粘贴题目..." model:value="{{questionText}}" />
+      <view class="btn-primary {{!passageText ? 'disabled' : ''}}" bindtap="extractSynonyms">
+        {{isExtracting ? '提取中...' : '提取同义替换'}}
+      </view>
+    </view>
+    <view class="synonym-result" wx:if="{{showSynonymResult}}">
+      <view class="result-section">
+        <view class="result-section-title">同义替换对</view>
+        <view class="pair-list">
+          <view class="pair-item" wx:for="{{synonymPairs}}" wx:for-item="pair" wx:key="index">
+            <view class="pair-left">{{pair.source}}</view>
+            <view class="pair-arrow">→</view>
+            <view class="pair-right">{{pair.target}}</view>
+          </view>
+        </view>
+      </view>
+      <view class="result-section">
+        <view class="result-section-title">高频替换模式</view>
+        <view class="pattern-text">{{synonymPattern}}</view>
+      </view>
+      <view class="btn-secondary" bindtap="clearSynonym">清除</view>
+    </view>
+  </view>
+</view>

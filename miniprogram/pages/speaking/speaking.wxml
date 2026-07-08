@@ -1,0 +1,90 @@
+<view class="container">
+  <view class="mode-selector" wx:if="{{!inSession}}">
+    <view class="section-title">口语练习模式</view>
+    <view class="mode-card" data-mode="part1" bindtap="startSession">
+      <view class="mode-icon">🗣️</view>
+      <view class="mode-info">
+        <view class="mode-title">Part 1 日常问答</view>
+        <view class="mode-desc">工作、学习、爱好等日常话题，AI考官逐题提问打分</view>
+      </view>
+    </view>
+    <view class="mode-card" data-mode="part2" bindtap="startSession">
+      <view class="mode-icon">📋</view>
+      <view class="mode-info">
+        <view class="mode-title">Part 2 话题陈述</view>
+        <view class="mode-desc">Cue Card话题，1分钟准备+2分钟陈述+打分</view>
+      </view>
+    </view>
+    <view class="mode-card" data-mode="part3" bindtap="startSession">
+      <view class="mode-icon">💭</view>
+      <view class="mode-info">
+        <view class="mode-title">Part 3 深度讨论</view>
+        <view class="mode-desc">抽象社会话题，考察批判性思维和深度表达</view>
+      </view>
+    </view>
+    <view class="mode-card" data-mode="free" bindtap="startSession">
+      <view class="mode-icon">🎯</view>
+      <view class="mode-info">
+        <view class="mode-title">自由对话</view>
+        <view class="mode-desc">自定义话题，自由练习</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="session" wx:else>
+    <view class="session-header">
+      <view class="session-mode">{{modeName}}</view>
+      <view class="session-actions">
+        <view class="session-btn" bindtap="endSession">结束</view>
+      </view>
+    </view>
+
+    <scroll-view class="chat-area" scroll-y scroll-into-view="{{scrollTo}}" scroll-with-animation>
+      <view class="message-list">
+        <view class="message {{msg.role}}" wx:for="{{messages}}" wx:for-item="msg" wx:key="index" id="msg-{{index}}">
+          <view class="msg-avatar">{{msg.role === 'ai' ? '🤖' : '👤'}}</view>
+          <view class="msg-content">
+            <view class="msg-text">{{msg.content}}</view>
+            <view class="msg-time">{{msg.time}}</view>
+          </view>
+        </view>
+        <view class="message ai" wx:if="{{isThinking}}">
+          <view class="msg-avatar">🤖</view>
+          <view class="msg-content">
+            <view class="thinking-dots">
+              <view class="dot"></view>
+              <view class="dot"></view>
+              <view class="dot"></view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="input-area" wx:if="{{!showScore}}">
+      <view class="input-wrapper">
+        <input class="input-box" placeholder="输入你的回答..." model:value="{{userInput}}" bindconfirm="sendMessage" />
+      </view>
+      <view class="send-btn" bindtap="sendMessage">
+        <text>发送</text>
+      </view>
+    </view>
+
+    <view class="score-panel" wx:if="{{showScore}}">
+      <view class="score-title">评分结果</view>
+      <view class="score-grid">
+        <view class="score-item" wx:for="{{scores}}" wx:key="key">
+          <view class="score-label">{{item.label}}</view>
+          <view class="score-value {{item.band >= 7 ? 'high' : item.band >= 5 ? 'mid' : 'low'}}">{{item.band}}</view>
+        </view>
+      </view>
+      <view class="score-total">总分：Band {{totalBand}}</view>
+      <view class="score-advice">
+        <view class="advice-title">改进建议</view>
+        <view wx:for="{{advice}}" wx:for-item="a" wx:key="index" class="advice-item">{{a}}</view>
+      </view>
+      <view class="btn-primary" bindtap="continuePractice">继续练习</view>
+      <view class="btn-secondary" bindtap="endSession">返回</view>
+    </view>
+  </view>
+</view>

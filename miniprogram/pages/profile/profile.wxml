@@ -1,0 +1,98 @@
+<view class="container">
+  <view class="profile-header">
+    <view class="avatar">🎯</view>
+    <view class="profile-name">雅思AI学习助手</view>
+    <view class="profile-target">目标：Band 7.0</view>
+  </view>
+
+  <view class="section-title">学习概览</view>
+  <view class="overview-grid">
+    <view class="overview-item">
+      <view class="overview-value">{{totalStats.speakingSessions}}</view>
+      <view class="overview-label">口语练习次数</view>
+    </view>
+    <view class="overview-item">
+      <view class="overview-value">{{totalStats.writingPieces}}</view>
+      <view class="overview-label">作文批改篇数</view>
+    </view>
+    <view class="overview-item">
+      <view class="overview-value">{{totalStats.vocabMastered}}</view>
+      <view class="overview-label">已掌握词汇</view>
+    </view>
+    <view class="overview-item">
+      <view class="overview-value">{{totalStats.totalStudyDays}}</view>
+      <view class="overview-label">学习天数</view>
+    </view>
+  </view>
+
+  <view class="section-title">连续打卡</view>
+  <view class="streak-card">
+    <view class="streak-header">
+      <view class="streak-count">{{totalStats.streakDays}} 天</view>
+      <view class="streak-label">连续学习</view>
+    </view>
+    <view class="streak-grid">
+      <view class="streak-day {{day.active ? 'active' : ''}} {{day.today ? 'today' : ''}}"
+        wx:for="{{last7Days}}" wx:for-item="day" wx:key="index">
+        <view class="day-label">{{day.label}}</view>
+        <view class="day-dot"></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-title">今日详情</view>
+  <view class="today-detail">
+    <view class="detail-row">
+      <view class="detail-label">🎤 口语练习</view>
+      <view class="detail-value">{{todayStats.speakingCount}} 次</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">✍️ 写作批改</view>
+      <view class="detail-value">{{todayStats.writingCount}} 篇</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">📚 词汇学习</view>
+      <view class="detail-value">{{todayStats.vocabLearned}} 个</view>
+    </view>
+    <view class="detail-row">
+      <view class="detail-label">⏱️ 学习时长</view>
+      <view class="detail-value">{{todayStats.studyMinutes}} 分钟</view>
+    </view>
+  </view>
+
+  <view class="section-title">学习记录</view>
+  <view class="history-tabs">
+    <view class="tab {{historyTab === 'all' ? 'active' : ''}}" data-tab="all" bindtap="switchTab">全部</view>
+    <view class="tab {{historyTab === 'speaking' ? 'active' : ''}}" data-tab="speaking" bindtap="switchTab">口语</view>
+    <view class="tab {{historyTab === 'writing' ? 'active' : ''}}" data-tab="writing" bindtap="switchTab">写作</view>
+  </view>
+  <view class="history-list">
+    <view class="history-item" wx:for="{{historyList}}" wx:for-item="item" wx:key="_id">
+      <view class="history-icon">{{item.module === 'speaking' ? '🎤' : '✍️'}}</view>
+      <view class="history-content">
+        <view class="history-title">{{item.title}}</view>
+        <view class="history-date">{{formatDate(item.createdAt)}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{historyList.length === 0}}">
+    <text>📝</text>
+    <view>还没有学习记录</view>
+  </view>
+
+  <view class="section-title">设置</view>
+  <view class="settings">
+    <view class="setting-item">
+      <view class="setting-label">AI 模型</view>
+      <picker bindchange="onModelChange" value="{{modelIndex}}" range="{{modelOptions}}">
+        <view class="setting-value">{{modelOptions[modelIndex]}} ›</view>
+      </picker>
+    </view>
+    <view class="setting-item">
+      <view class="setting-label">目标分数</view>
+      <picker bindchange="onTargetChange" value="{{targetIndex}}" range="{{targetOptions}}">
+        <view class="setting-value">{{targetOptions[targetIndex]}} ›</view>
+      </picker>
+    </view>
+  </view>
+</view>

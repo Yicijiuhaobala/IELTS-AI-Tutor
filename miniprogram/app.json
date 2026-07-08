@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/speaking/speaking",
+    "pages/writing/writing",
+    "pages/vocabulary/vocabulary",
+    "pages/profile/profile"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "雅思AI学习助手",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F5F7FA"
+  },
+  "tabBar": {
+    "color": "#8E8E93",
+    "selectedColor": "#4A90D9",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_active.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/speaking/speaking",
+        "iconPath": "images/speak.png",
+        "selectedIconPath": "images/speak_active.png",
+        "text": "口语"
+      },
+      {
+        "pagePath": "pages/writing/writing",
+        "iconPath": "images/write.png",
+        "selectedIconPath": "images/write_active.png",
+        "text": "写作"
+      },
+      {
+        "pagePath": "pages/vocabulary/vocabulary",
+        "iconPath": "images/vocab.png",
+        "selectedIconPath": "images/vocab_active.png",
+        "text": "词汇"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/profile.png",
+        "selectedIconPath": "images/profile_active.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "requiredBackgroundModes": ["audio"],
+  "cloud": true,
+  "sitemapLocation": "sitemap.json"
+}

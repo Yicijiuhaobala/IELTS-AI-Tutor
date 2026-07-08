@@ -1,0 +1,97 @@
+<view class="container">
+  <view class="task-selector" wx:if="{{!inSession}}">
+    <view class="section-title">写作批改</view>
+    <view class="task-card" data-task="task1" bindtap="selectTask">
+      <view class="task-icon">📊</view>
+      <view class="task-info">
+        <view class="task-title">Task 1 图表题</view>
+        <view class="task-desc">描述数据图表、流程图或地图，≥150词</view>
+      </view>
+    </view>
+    <view class="task-card" data-task="task2" bindtap="selectTask">
+      <view class="task-icon">📝</view>
+      <view class="task-info">
+        <view class="task-title">Task 2 议论文</view>
+        <view class="task-desc">就给定话题发表观点，≥250词</view>
+      </view>
+    </view>
+
+    <view class="section-title" style="margin-top: 48rpx;">最近批改</view>
+    <view class="history-list" wx:if="{{history.length > 0}}">
+      <view class="history-item" wx:for="{{history}}" wx:for-item="item" wx:key="index" data-id="{{item._id}}" bindtap="viewHistory">
+        <view class="history-info">
+          <view class="history-task">{{item.taskType === 'task1' ? 'Task 1' : 'Task 2'}}</view>
+          <view class="history-preview">{{item.title}}...</view>
+        </view>
+        <view class="history-score" wx:if="{{item.score}}">{{item.score}}</view>
+      </view>
+    </view>
+    <view class="empty-state" wx:else>
+      <text>✍️</text>
+      <view>还没有批改记录</view>
+    </view>
+  </view>
+
+  <view class="editor" wx:else>
+    <view class="editor-header">
+      <view class="editor-title">{{taskType === 'task1' ? 'Task 1 图表题' : 'Task 2 议论文'}}</view>
+      <view class="editor-close" bindtap="endSession">✕</view>
+    </view>
+
+    <scroll-view class="editor-body" scroll-y wx:if="{{!showResult}}">
+      <view class="question-card">
+        <view class="question-label">题目</view>
+        <view class="question-text">{{question}}</view>
+      </view>
+
+      <view class="word-count">已写：{{wordCount}} 词（建议{{taskType === 'task1' ? '≥150' : '≥250'}}）</view>
+
+      <textarea class="essay-input" placeholder="在此输入你的作文..." model:value="{{essay}}" bindinput="onEssayInput" maxlength="2000" auto-height />
+    </scroll-view>
+
+    <view class="editor-footer" wx:if="{{!showResult}}">
+      <view class="btn-primary {{wordCount < minWords ? 'disabled' : ''}}" bindtap="submitEssay">
+        {{isGrading ? '批改中...' : '提交批改'}}
+      </view>
+    </view>
+
+    <scroll-view class="result-area" scroll-y wx:if="{{showResult}}">
+      <view class="result-header">
+        <view class="result-score">Band {{score}}</view>
+        <view class="result-label">总分</view>
+      </view>
+
+      <view class="dimension-scores">
+        <view class="dim-item" wx:for="{{dimensions}}" wx:for-item="dim" wx:key="key">
+          <view class="dim-label">{{dim.label}}</view>
+          <view class="dim-bar">
+            <view class="dim-fill" style="width: {{dim.percent}}%"></view>
+          </view>
+          <view class="dim-value">{{dim.score}}</view>
+        </view>
+      </view>
+
+      <view class="result-section">
+        <view class="result-section-title">问题分析</view>
+        <view class="result-text">{{analysis}}</view>
+      </view>
+
+      <view class="result-section">
+        <view class="result-section-title">改进版本（Band 7+）</view>
+        <view class="result-text improved">{{improvedVersion}}</view>
+      </view>
+
+      <view class="result-section">
+        <view class="result-section-title">高分词汇</view>
+        <view class="vocab-tags">
+          <view class="vocab-tag" wx:for="{{vocabList}}" wx:for-item="v" wx:key="index">{{v}}</view>
+        </view>
+      </view>
+
+      <view class="result-actions">
+        <view class="btn-primary" bindtap="newEssay">再写一篇</view>
+        <view class="btn-secondary" bindtap="endSession">返回</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
