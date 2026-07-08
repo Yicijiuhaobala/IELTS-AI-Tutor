@@ -46,7 +46,9 @@ Page({
     modeTitle: '',
     isGenerating: false,
     userWords: '',
-    accent: 0
+    accent: 0,
+    showMastered: false,
+    masteredWords: []
   },
 
   onShow() {
@@ -90,7 +92,8 @@ Page({
   toggleMastered(e) {
     const index = e.currentTarget.dataset.index
     const key = `dailyWords[${index}].mastered`
-    const newVal = !this.data.dailyWords[index].mastered
+    const word = this.data.dailyWords[index]
+    const newVal = !word.mastered
     this.setData({ [key]: newVal })
 
     if (newVal) {
@@ -100,7 +103,29 @@ Page({
         cached.words[index].mastered = true
         wx.setStorageSync('daily_words', cached)
       }
+
+      const mastered = wx.getStorageSync('mastered_words') || []
+      if (!mastered.find(w => w.word === word.word)) {
+        mastered.unshift({
+          word: word.word,
+          phonetic: word.phonetic,
+          meaning: word.meaning,
+          date: new Date().toLocaleDateString()
+        })
+        wx.setStorageSync('mastered_words', mastered.slice(0, 200))
+      }
     }
+  },
+
+  loadMasteredWords() {
+    const mastered = wx.getStorageSync('mastered_words') || []
+    this.setData({ masteredWords: mastered })
+  },
+
+  toggleMasteredList() {
+    const show = !this.data.showMastered
+    if (show) this.loadMasteredWords()
+    this.setData({ showMastered: show })
   },
 
   switchMode(e) {
