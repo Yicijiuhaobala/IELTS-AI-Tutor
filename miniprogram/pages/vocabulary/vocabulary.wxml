@@ -49,21 +49,6 @@
     </view>
   </view>
 
-  <view class="mastered-toggle" bindtap="toggleMasteredList">
-    <text>{{showMastered ? '▼' : '▶'}} 已掌握词汇（{{masteredWords.length}}）</text>
-  </view>
-  <view class="mastered-list" wx:if="{{showMastered}}">
-    <view class="mastered-item" wx:for="{{masteredWords}}" wx:for-item="word" wx:key="index">
-      <view class="mastered-word">
-        <text class="word-text" bindtap="playSound" data-word="{{word.word}}">{{word.word}}</text>
-        <text class="word-phonetic-small">{{word.phonetic}}</text>
-      </view>
-      <view class="mastered-meaning">{{word.meaning}}</view>
-      <view class="mastered-date">{{word.date}}</view>
-    </view>
-    <view class="empty-state-small" wx:if="{{masteredWords.length === 0}}">还没有已掌握的词汇</view>
-  </view>
-
   <view wx:if="{{isGenerating}}" class="loading-tip">AI 生成中，请稍候...</view>
 
   <view wx:if="{{showModeContent}}">

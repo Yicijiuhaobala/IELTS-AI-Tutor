@@ -46,9 +46,7 @@ Page({
     modeTitle: '',
     isGenerating: false,
     userWords: '',
-    accent: 0,
-    showMastered: false,
-    masteredWords: []
+    accent: 0
   },
 
   onShow() {
@@ -115,17 +113,6 @@ Page({
         wx.setStorageSync('mastered_words', mastered)
       }
     }
-  },
-
-  loadMasteredWords() {
-    const mastered = wx.getStorageSync('mastered_words') || []
-    this.setData({ masteredWords: mastered })
-  },
-
-  toggleMasteredList() {
-    const show = !this.data.showMastered
-    if (show) this.loadMasteredWords()
-    this.setData({ showMastered: show })
   },
 
   switchMode(e) {
