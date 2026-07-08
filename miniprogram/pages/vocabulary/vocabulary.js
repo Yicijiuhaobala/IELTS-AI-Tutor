@@ -172,6 +172,7 @@ Page({
         isGenerating: false
       })
       app.updateStats('vocab', 0)
+      this.saveHistory(`场景故事（${words}）`, content)
     } catch (e) {
       this.setData({
         showModeContent: true,
@@ -207,6 +208,7 @@ Page({
         modeContent: content,
         isGenerating: false
       })
+      this.saveHistory(`填空测验（${words}）`, content)
     } catch (e) {
       this.setData({
         showModeContent: true,
@@ -229,6 +231,7 @@ Page({
         modeContent: content,
         isGenerating: false
       })
+      this.saveHistory(`词根词缀（${root}）`, content)
     } catch (e) {
       this.setData({
         showModeContent: true,
@@ -271,6 +274,7 @@ Page({
         isExtracting: false
       })
       app.updateStats('vocab', 2)
+      this.saveHistory('同义替换', passageText.substring(0, 100))
     } catch (e) {
       this.setData({ isExtracting: false })
       wx.showToast({ title: e.message || '提取失败', icon: 'none' })
@@ -328,6 +332,20 @@ Page({
     this._seqTimer = setTimeout(() => {
       this.playWordSequence(words, index + 1)
     }, delay)
+  },
+
+  saveHistory(content, aiResponse) {
+    wx.cloud.callFunction({
+      name: 'user-data',
+      data: {
+        action: 'saveHistory',
+        data: {
+          module: 'vocabulary',
+          content: content || '词汇学习',
+          aiResponse: aiResponse || ''
+        }
+      }
+    }).catch(() => {})
   },
 
   backToGrid() {

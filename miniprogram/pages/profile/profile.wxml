@@ -65,10 +65,11 @@
     <view class="tab {{historyTab === 'all' ? 'active' : ''}}" data-tab="all" bindtap="switchTab">全部</view>
     <view class="tab {{historyTab === 'speaking' ? 'active' : ''}}" data-tab="speaking" bindtap="switchTab">口语</view>
     <view class="tab {{historyTab === 'writing' ? 'active' : ''}}" data-tab="writing" bindtap="switchTab">写作</view>
+    <view class="tab {{historyTab === 'vocabulary' ? 'active' : ''}}" data-tab="vocabulary" bindtap="switchTab">词汇</view>
   </view>
   <view class="history-list">
     <view class="history-item" wx:for="{{historyList}}" wx:for-item="item" wx:key="_id">
-      <view class="history-icon">{{item.module === 'speaking' ? '🎤' : '✍️'}}</view>
+      <view class="history-icon">{{item.module === 'speaking' ? '🎤' : item.module === 'writing' ? '✍️' : '📚'}}</view>
       <view class="history-content">
         <view class="history-title">{{item.title}}</view>
         <view class="history-date">{{formatDate(item.createdAt)}}</view>
