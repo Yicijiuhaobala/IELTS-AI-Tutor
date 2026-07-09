@@ -165,7 +165,9 @@ Page({
   },
 
   shouldShowScore(content) {
-    return content.includes('Fluency') || content.includes('流利度') || content.includes('Band')
+    const scoreRegex = /(?:Fluency|流利度|Lexical|词汇|Grammatical|语法|Pronunciation|发音)[^0-9]*([\d.]+)/gi
+    const matches = content.match(scoreRegex)
+    return matches !== null && matches.length >= 2
   },
 
   parseScore(content) {
