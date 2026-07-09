@@ -264,6 +264,12 @@ Page({
         pairs.push({ source: match[1].trim(), target: match[2].trim() })
       }
 
+      if (pairs.length === 0) {
+        this.setData({ isExtracting: false })
+        wx.showToast({ title: '未识别到同义替换，请检查文章格式', icon: 'none' })
+        return
+      }
+
       const patternMatch = content.match(/(?:替换模式|类型)[：:]\s*([^\n]+)/)
       const pattern = patternMatch ? patternMatch[1] : '请查看完整分析'
 
